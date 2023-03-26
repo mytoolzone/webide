@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  webide:
+    container_name: webide
+    image: codercom/code-server:4.11.0-debian
+    privileged: true
+    restart: always
+    ports:
+      - 8001:8000
+    user: corder
+    group: corder
+    environment:
+      - DOCKER_USER=gw
+    volumes:
+      - $HOME/weidecode:/home/corder/code
+      - $HOME/.config:/home/coder/.config
+    networks:
+      - webide
+networks:
+  webide:
+    driver: bridge
+

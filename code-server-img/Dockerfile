@@ -1,4 +1,4 @@
-FROM codercom/code-server:4.11.0-debian
+FROM registry.cn-beijing.aliyuncs.com/gapi/code-server:4.11.0-debian
 
 #RUN curl -L https://go.dev/dl/go1.20.2.linux-amd64.tar.gz -o go.1.20.tar.gz 
 WORKDIR /home/coder
