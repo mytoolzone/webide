@@ -3,24 +3,26 @@ FROM codercom/code-server:4.11.0-debian
 #RUN curl -L https://go.dev/dl/go1.20.2.linux-amd64.tar.gz -o go.1.20.tar.gz 
 WORKDIR /home/coder
 
+RUN sudo apt-get update
+RUN sudo apt-get install -y --no-install-recommends g++ gcc libc6-dev make pkg-config xz-utils;
+
 ## install goland
-COPY go1.20.2.linux-amd64.tar.gz node-v18.15.0-linux-x64.tar.xz ./
-RUN sudo tar -C /usr/local -xzvf  go1.20.2.linux-amd64.tar.gz && rm -f go1.20.2.linux-amd64.tar.gz
+COPY go1.20.2.linux-amd64.tar.gz  ./
+RUN sudo tar -C /usr/local -xzvf  go1.20.2.linux-amd64.tar.gz && rm  go1.20.2.linux-amd64.tar.gz
 ENV PATH=$PATH:/usr/local/go/bin
 
-RUN sudo apt-get update
-RUN sudo apt-get install -y --no-install-recommends \
-		g++ \
-		gcc \
-		libc6-dev \
-		make \
-		pkg-config \apt-get update;
+## install node
+COPY node-v18.15.0-linux-x64.tar.xz ./
+RUN sudo tar -C /usr/local -xvf node-v18.15.0-linux-x64.tar.xz 
+RUN rm node-v18.15.0-linux-x64.tar.xz
+RUN sudo mv /usr/local/node-v18.15.0-linux-x64 /usr/local/node
+ENV PATH=$PATH:/usr/local/node/bin
 
-COPY go1.20.2.linux-amd64.tar.gz node-v18.15.0-linux-x64.tar.xz ./
+#RUN sudo /usr/local/node/bin/npm config set registry https://registry.npm.taobao.org
+#RUN sudo /usr/local/node/bin/npm install -g pnpm && npm install -g vue-cli
 
+## install mytool 
 
 CMD [ "/bin/sh" ]
-
-
 
 
